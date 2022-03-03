@@ -44,6 +44,7 @@ class KeyBindings:
             self.show_help()
 
         @self.key_bindings.add("c-q", filter=not_help_mode)
+        @self.key_bindings.add("q", filter=command_mode)
         async def c_q(event):
             await self.exit()
 
@@ -63,11 +64,13 @@ class KeyBindings:
             self.exit_cell()
 
         @self.key_bindings.add("up", filter=command_mode)
+        @self.key_bindings.add("k", filter=command_mode)
         def up(event):
             self.quitting = False
             self.go_up()
 
         @self.key_bindings.add("down", filter=command_mode)
+        @self.key_bindings.add("j", filter=command_mode)
         def down(event):
             self.quitting = False
             self.go_down()
@@ -92,6 +95,7 @@ class KeyBindings:
             self.quitting = False
             self.markdown_cell()
 
+        @self.key_bindings.add("y", filter=command_mode)
         @self.key_bindings.add("o", filter=command_mode)
         def o(event):
             self.quitting = False
@@ -136,3 +140,13 @@ class KeyBindings:
         def b(event):
             self.quitting = False
             self.insert_cell(below=True)
+
+        @self.key_bindings.add("G", filter=command_mode)
+        def G(event):
+            self.quitting = False
+            self.focus(len(self.cells) - 1)
+
+        @self.key_bindings.add("g", filter=command_mode)
+        def g(event):
+            self.quitting = False
+            self.focus(0)
